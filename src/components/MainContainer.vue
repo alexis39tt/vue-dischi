@@ -1,48 +1,54 @@
 <template>
   <main>
-    <RecordComp v-for="(elm, i) in records"
-        :key="i"
-        :image="elm.poster"
-        :title="elm.title"
-        :author="elm.author"
-        :year="elm.year"/>
+    <LoadingComp v-show="records.length == 0" />
+    <RecordComp
+      v-for="(elm, i) in records"
+      :key="i"
+      :image="elm.poster"
+      :title="elm.title"
+      :author="elm.author"
+      :year="elm.year"
+    />
   </main>
 </template>
 
 <script>
 import axios from "axios";
+import LoadingComp from "./LoadingComp.vue";
 import RecordComp from "./RecordComp.vue";
 
 export default {
-name: 'MainContainer',
+  name: "MainContainer",
   components: {
+    LoadingComp,
     RecordComp
   },
-  data(){
-      return{
-          records: []
-      }
+  data() {
+    return {
+      records: [],
+    };
   },
-  created(){
-      axios.get('https://flynn.boolean.careers/exercises/api/array/music')
+  created() {
+    axios
+      .get("https://flynn.boolean.careers/exercises/api/array/music")
       .then((res) => {
-        this.records = res.data.response
-        console.log(res.data.response)
+        this.records = res.data.response;
+        console.log(res.data.response);
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  },
 };
 </script>
 
 <style scoped lang="scss">
 $lb: #2e3a46;
-main{
-    padding: 80px 360px 0;
-    display: flex;
-    flex-wrap: wrap;
-    font-family: Arial, Helvetica, sans-serif;
-    justify-content: center;
+main {
+  padding: 80px 360px 0;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: Arial, Helvetica, sans-serif;
+  justify-content: center;
 }
 </style>
