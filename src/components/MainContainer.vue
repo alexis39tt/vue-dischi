@@ -9,19 +9,22 @@
       :author="elm.author"
       :year="elm.year"
     />
+    <SelectComp :records="records" @genrefilter="filtering"/>
   </main>
 </template>
 
 <script>
 import axios from "axios";
+import SelectComp from "./SelectComp.vue";
 import LoadingComp from "./LoadingComp.vue";
 import RecordComp from "./RecordComp.vue";
 
 export default {
   name: "MainContainer",
   components: {
+    SelectComp,
     LoadingComp,
-    RecordComp
+    RecordComp,
   },
   data() {
     return {
@@ -33,12 +36,16 @@ export default {
       .get("https://flynn.boolean.careers/exercises/api/array/music")
       .then((res) => {
         this.records = res.data.response;
-        console.log(res.data.response);
       })
       .catch((err) => {
         console.log(err);
       });
   },
+  methods: {
+    filtering(){
+      
+    }
+  }
 };
 </script>
 
