@@ -1,5 +1,6 @@
 <template>
   <select v-model="selected">
+      <option value="" disabled hidden>Seleziona il genere</option>
     <option v-for="(elm, i) in filter()" value="elm" :key="i">{{ elm }}</option>
   </select>
 </template>
